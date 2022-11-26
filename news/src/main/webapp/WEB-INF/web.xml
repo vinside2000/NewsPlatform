@@ -7,6 +7,6 @@
 
   <!--配置欢迎界面-->
   <welcome-file-list>
-    <welcome-file>/WEB-INF/jsp/webindex.jsp</welcome-file>
+    <welcome-file>/webindex.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
