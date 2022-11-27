@@ -16,28 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `nuserrole`
+-- Table structure for table `nnewstype`
 --
 
-DROP TABLE IF EXISTS `nuserrole`;
+DROP TABLE IF EXISTS `nnewstype`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nuserrole` (
+CREATE TABLE `nnewstype` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `role_id` int NOT NULL,
-  `user_id` varchar(256) NOT NULL,
+  `type_id` int NOT NULL,
+  `news_id` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nuserrole`
+-- Dumping data for table `nnewstype`
 --
 
-LOCK TABLES `nuserrole` WRITE;
-/*!40000 ALTER TABLE `nuserrole` DISABLE KEYS */;
-INSERT INTO `nuserrole` VALUES (1,3,'87a9313a30474c9892f882177ec51663'),(2,1,'75481a5817b74f23923955b77731066c');
-/*!40000 ALTER TABLE `nuserrole` ENABLE KEYS */;
+LOCK TABLES `nnewstype` WRITE;
+/*!40000 ALTER TABLE `nnewstype` DISABLE KEYS */;
+INSERT INTO `nnewstype` VALUES (1,1,'3a736e70b7f645559b742e9bd003f532');
+/*!40000 ALTER TABLE `nnewstype` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-26 19:42:03
+-- Dump completed on 2022-11-27 19:56:29

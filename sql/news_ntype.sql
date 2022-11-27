@@ -16,29 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `nuser`
+-- Table structure for table `ntype`
 --
 
-DROP TABLE IF EXISTS `nuser`;
+DROP TABLE IF EXISTS `ntype`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nuser` (
-  `user_id` varchar(256) NOT NULL,
-  `username` varchar(256) NOT NULL,
-  `number` varchar(256) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `ntype` (
+  `type_id` int NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(256) NOT NULL,
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nuser`
+-- Dumping data for table `ntype`
 --
 
-LOCK TABLES `nuser` WRITE;
-/*!40000 ALTER TABLE `nuser` DISABLE KEYS */;
-INSERT INTO `nuser` VALUES ('75481a5817b74f23923955b77731066c','test1','12345','123'),('87a9313a30474c9892f882177ec51663','admin','000000','111111');
-/*!40000 ALTER TABLE `nuser` ENABLE KEYS */;
+LOCK TABLES `ntype` WRITE;
+/*!40000 ALTER TABLE `ntype` DISABLE KEYS */;
+INSERT INTO `ntype` VALUES (1,'校园热点'),(2,'表白墙'),(3,'失物招领'),(4,'时政热点');
+/*!40000 ALTER TABLE `ntype` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-26 19:42:03
+-- Dump completed on 2022-11-27 19:56:29

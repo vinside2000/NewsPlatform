@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<table class="easyui-datagrid" id="itemList" title="商品列表" 
-       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/item/list',method:'get',pageSize:30,toolbar:toolbar">
+<table class="easyui-datagrid" id="itemList" title="新闻列表"
+       data-options="singleSelect:false,collapsible:true,pagination:true,url:'${pageContext.request.contextPath}/newsListServlet',method:'get',pageSize:30,toolbar:toolbar">
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
-        	<th data-options="field:'id',width:60">新闻ID</th>
+        	<th data-options="field:'newsId',width:60" hidden>新闻ID</th>
             <th data-options="field:'title',width:200">新闻标题</th>
-            <th data-options="field:'categoryId',width:100">所属分类</th>
-            <th data-options="field:'parentCategoryId',width:100">所属左侧分类</th>
-            <th data-options="field:'summary',width:100">新闻摘要</th>
+            <th data-options="field:'author',width:100">作者</th>
+            <th data-options="field:'typeId',width:100" hidden>分类ID</th>
+            <th data-options="field:'typeName',width:100">分类</th>
             <th data-options="field:'content',width:100">新闻内容</th>
-            <th data-options="field:'createTime',width:130,align:'center',formatter:TAOTAO.formatDateTime">创建日期</th>
-            <th data-options="field:'updateTime',width:130,align:'center',formatter:TAOTAO.formatDateTime">更新日期</th>
         </tr>
     </thead>
 </table>
@@ -24,19 +22,13 @@
     	var sels = itemList.datagrid("getSelections");
     	var ids = [];
     	for(var i in sels){
-    		ids.push(sels[i].id);
+    		ids.push(sels[i].newsId);
     	}
     	ids = ids.join(",");
     	return ids;
     }
     
     var toolbar = [{
-        text:'新增',
-        iconCls:'icon-add',
-        handler:function(){
-        	$(".tree-title:contains('新增新闻')").parent().click();
-        }
-    },{
         text:'编辑',
         iconCls:'icon-edit',
         handler:function(){
@@ -56,7 +48,7 @@
         			var data = $("#itemList").datagrid("getSelections")[0];
         			data.priceView = TAOTAO.formatPrice(data.price);
         			$("#itemeEditForm").form("load",data);
-        			
+
         			// 加载商品描述
         			$.getJSON('/rest/item/query/item/desc/'+data.id,function(_data){
         				if(_data.status == 200){
@@ -64,28 +56,28 @@
         					itemEditEditor.html(_data.data.itemDesc);
         				}
         			});
-        			
+
         			//加载商品规格
         			$.getJSON('/rest/item/param/item/query/'+data.id,function(_data){
         				if(_data && _data.status == 200 && _data.data && _data.data.paramData){
         					$("#itemeEditForm .params").show();
         					$("#itemeEditForm [name=itemParams]").val(_data.data.paramData);
         					$("#itemeEditForm [name=itemParamId]").val(_data.data.id);
-        					
+
         					//回显商品规格
         					 var paramData = JSON.parse(_data.data.paramData);
-        					
+
         					 var html = "<ul>";
         					 for(var i in paramData){
         						 var pd = paramData[i];
         						 html+="<li><table>";
         						 html+="<tr><td colspan=\"2\" class=\"group\">"+pd.group+"</td></tr>";
-        						 
+
         						 for(var j in pd.params){
         							 var ps = pd.params[j];
         							 html+="<tr><td class=\"param\"><span>"+ps.k+"</span>: </td><td><input autocomplete=\"off\" type=\"text\" value='"+ps.v+"'/></td></tr>";
         						 }
-        						 
+
         						 html+="</li></table>";
         					 }
         					 html+= "</ul>";

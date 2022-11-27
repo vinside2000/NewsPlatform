@@ -7,50 +7,38 @@
 		<input type="hidden" name="id"/>
 	    <table cellpadding="5">
 	          <tr>
-	            <td>新闻分类:</td>
-	            <td>
-	            	<a href="javascript:void(0)" class="easyui-linkbutton selectItemCat">选择类目</a>
-	            	<input type="hidden" name="categoryId" style="width: 280px;"></input>
-	            </td>
+				  <td>新闻分类:</td>
+				  <td>
+					  <select name="typeId">
+						  <option value="1">校园热点</option>
+						  <option value="2">表白墙</option>
+						  <option value="3">失物招领</option>
+						  <option value="4">时政热点</option>
+					  </select>
+				  </td>
 	        </tr>
 	        <tr>
-
-	            <td>所属左侧分类:</td>
-	            <td>
-	            	<a href="javascript:void(0)" class="easyui-linkbutton selectItemCat2">选择类目</a>
-	            	<input type="hidden" name="parentCategoryId" style="width: 280px;"></input>
-	            </td>
-	       </tr>
-	        <tr>
 	            <td>作者:</td>
-	            <td><input class="easyui-textbox" type="text" name="writer" data-options="required:true" style="width: 280px;"></input></td>
+	            <td><input class="easyui-textbox" type="text" name="author" data-options="required:true" style="width: 280px;"></input></td>
 	        </tr>
 	        <tr>
 	            <td>新闻标题:</td>
 	            <td><input class="easyui-textbox" name="title" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input></td>
 	        </tr>
-	        <tr>
-	            <td>新闻图片:</td>
-	            <td>
-	            	 <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
-	                 <input type="hidden" name="image1"/>
-	            </td>
-	        </tr>
+<%--	        <tr>--%>
+<%--	            <td>新闻图片:</td>--%>
+<%--	            <td>--%>
+<%--	            	 <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>--%>
+<%--	                 <input type="hidden" name="image1"/>--%>
+<%--	            </td>--%>
+<%--	        </tr>--%>
 	        <tr>
 	            <td>新闻内容:</td>
 	            <td>
 	                <textarea style="width:800px;height:300px;visibility:hidden;" name="content"></textarea>
 	            </td>
 	        </tr>
-	       <!--  <tr class="params hide">
-	        	<td>商品规格:</td>
-	        	<td>
-	        		
-	        	</td>
-	        </tr> -->
 	    </table>
-	    <input type="hidden" name="itemParams"/>
-	    <input type="hidden" name="itemParamId"/>
 	</form>
 	<div style="padding:5px">
 	    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>

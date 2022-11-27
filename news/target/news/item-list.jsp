@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <table class="easyui-datagrid" id="itemList" title="商品列表" 
-       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/item/list',method:'get',pageSize:30,toolbar:toolbar">
+       data-options="singleSelect:false,collapsible:true,pagination:true,url:'${pageContext.request.contextPath}/newsListServlet',method:'get',pageSize:30,toolbar:toolbar">
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
-        	<th data-options="field:'id',width:60">新闻ID</th>
+        	<th data-options="field:'newsId',width:60" hidden>新闻ID</th>
             <th data-options="field:'title',width:200">新闻标题</th>
-            <th data-options="field:'categoryId',width:100">所属分类</th>
-            <th data-options="field:'parentCategoryId',width:100">所属左侧分类</th>
-            <th data-options="field:'summary',width:100">新闻摘要</th>
+            <th data-options="field:'author',width:100">作者</th>
+            <th data-options="field:'typeId',width:100" hidden>分类ID</th>
+            <th data-options="field:'typeName',width:100">分类</th>
             <th data-options="field:'content',width:100">新闻内容</th>
-            <th data-options="field:'createTime',width:130,align:'center',formatter:TAOTAO.formatDateTime">创建日期</th>
-            <th data-options="field:'updateTime',width:130,align:'center',formatter:TAOTAO.formatDateTime">更新日期</th>
         </tr>
     </thead>
 </table>
@@ -24,19 +22,13 @@
     	var sels = itemList.datagrid("getSelections");
     	var ids = [];
     	for(var i in sels){
-    		ids.push(sels[i].id);
+    		ids.push(sels[i].newsId);
     	}
     	ids = ids.join(",");
     	return ids;
     }
     
     var toolbar = [{
-        text:'新增',
-        iconCls:'icon-add',
-        handler:function(){
-        	$(".tree-title:contains('新增新闻')").parent().click();
-        }
-    },{
         text:'编辑',
         iconCls:'icon-edit',
         handler:function(){

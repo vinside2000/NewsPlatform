@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.11, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: news
 -- ------------------------------------------------------
--- Server version	8.0.11
+-- Server version	8.0.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,13 +21,13 @@
 
 DROP TABLE IF EXISTS `nuser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nuser` (
-  `n_user_id` varchar(256) NOT NULL,
-  `n_username` varchar(256) DEFAULT NULL,
-  `n_number` int(11) NOT NULL,
-  `n_password` varchar(256) NOT NULL,
-  PRIMARY KEY (`n_user_id`)
+  `user_id` varchar(256) NOT NULL,
+  `username` varchar(256) NOT NULL,
+  `number` varchar(256) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -37,6 +37,7 @@ CREATE TABLE `nuser` (
 
 LOCK TABLES `nuser` WRITE;
 /*!40000 ALTER TABLE `nuser` DISABLE KEYS */;
+INSERT INTO `nuser` VALUES ('6c445d3d03e04be9b7830bb7214bcbe0','editor','111111','1'),('87a9313a30474c9892f882177ec51663','admin','000000','1');
 /*!40000 ALTER TABLE `nuser` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-24 20:28:55
+-- Dump completed on 2022-11-27 19:56:29

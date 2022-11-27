@@ -16,27 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `nrole`
+-- Table structure for table `nnews`
 --
 
-DROP TABLE IF EXISTS `nrole`;
+DROP TABLE IF EXISTS `nnews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `nrole` (
-  `role_id` int NOT NULL,
-  `role_type` int NOT NULL COMMENT '1-普通用户|2-新闻记者|3-管理员',
-  PRIMARY KEY (`role_id`)
+CREATE TABLE `nnews` (
+  `news_id` varchar(256) NOT NULL,
+  `author` varchar(256) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `content` text NOT NULL,
+  PRIMARY KEY (`news_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `nrole`
+-- Dumping data for table `nnews`
 --
 
-LOCK TABLES `nrole` WRITE;
-/*!40000 ALTER TABLE `nrole` DISABLE KEYS */;
-INSERT INTO `nrole` VALUES (1,1),(2,2),(3,3);
-/*!40000 ALTER TABLE `nrole` ENABLE KEYS */;
+LOCK TABLES `nnews` WRITE;
+/*!40000 ALTER TABLE `nnews` DISABLE KEYS */;
+INSERT INTO `nnews` VALUES ('3a736e70b7f645559b742e9bd003f532','editor','test','111111111111111111111111');
+/*!40000 ALTER TABLE `nnews` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

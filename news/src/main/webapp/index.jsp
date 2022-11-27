@@ -33,15 +33,16 @@
 					</c:if>
 	         	</ul>
          	</li>
-         	<li>
-         		<span>网站内容管理</span>
-         		<ul>
-					<c:if test="${roleType == 3}">
-	         			<li data-options="attributes:{'url':'/content-category.jsp'}">新闻分类管理</li>
-					</c:if>
-	         		<li data-options="attributes:{'url':'/content.jsp'}">内容管理</li>
-	         	</ul>
-         	</li>
+			<c:if test="${roleType == 3}">
+				<li>
+					<span>网站内容管理</span>
+					<ul>
+
+							<li data-options="attributes:{'url':'/content-category.jsp'}">新闻分类管理</li>
+
+					</ul>
+				</li>
+			</c:if>
 			<c:if test="${roleType == 3}">
 				<li>
 					<span>人员管理</span>
