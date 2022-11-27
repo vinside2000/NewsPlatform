@@ -1,6 +1,9 @@
 package com.news.service;
 
 import com.news.model.User;
+import com.news.model.UserRole;
+
+import java.util.List;
 
 public interface UserService {
     /**
@@ -29,4 +32,22 @@ public interface UserService {
      * @return
      */
     Integer findRoleType(String usrId);
+
+    /**
+     * 获取全部用户以及角色
+     * @return
+     */
+    List<UserRole> getAll();
+
+    /**
+     * 修改用户
+     * @param userRole
+     */
+    void modifyUser(UserRole userRole);
+
+    /**
+     * 删除用户
+     * @param userId
+     */
+    void deleteUser(String userId);
 }

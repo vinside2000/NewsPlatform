@@ -21,46 +21,14 @@
 	            	<input type="hidden" name="parentCategoryId" style="width: 280px;"></input>
 	            </td>
 	       </tr>
-	       <!-- <tr>  
-	            <td>新闻标题:</td>
-	            <td><input class="easyui-textbox" type="text" name="title" data-options="required:true" style="width: 280px;"></input></td>
-	        </tr> -->
 	        <tr>
 	            <td>作者:</td>
 	            <td><input class="easyui-textbox" type="text" name="writer" data-options="required:true" style="width: 280px;"></input></td>
 	        </tr>
-	        <!-- <tr>
-	            <td>新闻摘要:</td>
-	            <td><input class="easyui-textbox" name="sellPoint" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input></td>
-	        </tr> -->
 	        <tr>
 	            <td>新闻标题:</td>
 	            <td><input class="easyui-textbox" name="title" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input></td>
 	        </tr>
-	        <!-- <tr>
-	            <td>商品价格:</td>
-=======
-	            <td>新闻作者:</td>
->>>>>>> .r220
-	            <td><input class="easyui-numberbox" type="text" name="priceView" data-options="min:1,max:99999999,precision:2,required:true" />
-	            	<input type="hidden" name="price"/>
-	            </td>
-<<<<<<< .mine
-	        </tr> -->
-	        <!-- <tr>
-=======
-	        </tr> 
-	        <!-- <tr>
->>>>>>> .r220
-	            <td>库存数量:</td>
-	            <td><input class="easyui-numberbox" type="text" name="num" data-options="min:1,max:99999999,precision:0,required:true" /></td>
-	        </tr> -->
-	        <!-- <tr>
-	            <td>条形码:</td>
-	            <td>
-	                <input class="easyui-textbox" type="text" name="barcode" data-options="validType:'length[1,30]'" />
-	            </td>
-	        </tr> -->
 	        <tr>
 	            <td>新闻图片:</td>
 	            <td>

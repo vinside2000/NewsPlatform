@@ -10,11 +10,6 @@
             <th data-options="field:'parentCategoryId',width:100">所属左侧分类</th>
             <th data-options="field:'summary',width:100">新闻摘要</th>
             <th data-options="field:'content',width:100">新闻内容</th>
-            <!-- <th data-options="field:'sellPoint',width:100">作者</th> -->
-            <!-- <th data-options="field:'price',width:70,align:'right',formatter:TAOTAO.formatPrice">价格</th> -->
-            <!-- <th data-options="field:'num',width:70,align:'right'">库存数量</th> -->
-            <!-- <th data-options="field:'barcode',width:100">条形码</th> -->
-            <!-- <th data-options="field:'status',width:60,align:'center',formatter:TAOTAO.formatItemStatus">状态</th> -->
             <th data-options="field:'createTime',width:130,align:'center',formatter:TAOTAO.formatDateTime">创建日期</th>
             <th data-options="field:'updateTime',width:130,align:'center',formatter:TAOTAO.formatDateTime">更新日期</th>
         </tr>

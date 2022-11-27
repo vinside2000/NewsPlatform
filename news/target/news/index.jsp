@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,28 +20,38 @@
 </head>
 <body class="easyui-layout">
     <div data-options="region:'west',title:'菜单',split:true" style="width:180px;">
-    	<ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
+		<c:if test="${roleType == 2 || roleType == 3}">
+    		<ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
          	<li>
          		<span>新闻管理</span>
          		<ul>
-	         		<li data-options="attributes:{'url':'/item-add.jsp'}">新增新闻</li>
-	         		<li data-options="attributes:{'url':'/item-list.jsp'}">查询新闻</li>
+					<c:if test="${roleType == 2 }">
+	         			<li data-options="attributes:{'url':'/item-add.jsp'}">新增新闻</li>
+					</c:if>
+					<c:if test="${roleType == 2 || roleType == 3}">
+	         			<li data-options="attributes:{'url':'/item-list.jsp'}">新闻管理</li>
+					</c:if>
 	         	</ul>
          	</li>
          	<li>
          		<span>网站内容管理</span>
          		<ul>
-	         		<li data-options="attributes:{'url':'/content-category.jsp'}">新闻分类管理</li>
+					<c:if test="${roleType == 3}">
+	         			<li data-options="attributes:{'url':'/content-category.jsp'}">新闻分类管理</li>
+					</c:if>
 	         		<li data-options="attributes:{'url':'/content.jsp'}">内容管理</li>
 	         	</ul>
          	</li>
-			<li>
-				<span>人员管理</span>
-				<ul>
-					<li data-options="attributes:{'url':'/content-category.jsp'}">人员管理</li>
-				</ul>
-			</li>
+			<c:if test="${roleType == 3}">
+				<li>
+					<span>人员管理</span>
+					<ul>
+						<li data-options="attributes:{'url':'/user-list.jsp'}">人员管理</li>
+					</ul>
+				</li>
+			</c:if>
          </ul>
+		</c:if>
     </div>
     <div data-options="region:'center',title:''">
     	<div id="tabs" class="easyui-tabs">

@@ -25,10 +25,6 @@ public class RegisterServlet extends HttpServlet {
 
         //获取所有数据
         Map<String, String[]> map = request.getParameterMap();
-        for (Map.Entry<String, String[]> m : map.entrySet())
-        {
-            System.out.println("key:" + m.getKey() + " value:" + m.getValue());
-        }
         //封装对象
         User user = new User();
         System.out.println(user);
