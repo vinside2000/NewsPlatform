@@ -22,17 +22,15 @@
     <div data-options="region:'west',title:'菜单',split:true" style="width:180px;">
 		<c:if test="${roleType == 2 || roleType == 3}">
     		<ul id="menu" class="easyui-tree" style="margin-top: 10px;margin-left: 5px;">
+			<c:if test="${roleType == 2 }">
          	<li>
          		<span>新闻管理</span>
          		<ul>
-					<c:if test="${roleType == 2 }">
-	         			<li data-options="attributes:{'url':'/item-add.jsp'}">新增新闻</li>
-					</c:if>
-					<c:if test="${roleType == 2}">
-	         			<li data-options="attributes:{'url':'/item-list.jsp'}">新闻管理</li>
-					</c:if>
+					<li data-options="attributes:{'url':'/item-add.jsp'}">新增新闻</li>
+					<li data-options="attributes:{'url':'/item-list.jsp'}">新闻管理</li>
 	         	</ul>
          	</li>
+			</c:if>
 			<c:if test="${roleType == 3}">
 				<li>
 					<span>网站内容管理</span>

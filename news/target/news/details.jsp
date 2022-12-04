@@ -300,20 +300,6 @@ var ue = UE.getEditor('input_content',{
 	</div>
 
     <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<%--    <script>--%>
-<%--        function destroyComm(id) {--%>
-<%--            console.log(id);--%>
-<%--            if (id) {--%>
-<%--                $.messager.confirm('Confirm', '确定要删除该条评论?', function(r) {--%>
-<%--                    if (r) {--%>
-<%--                        $.post('${pageContext.request.contextPath}/deleteCommServlet', {--%>
-<%--                            id : id--%>
-<%--                        });--%>
-<%--                    }--%>
-<%--                });--%>
-<%--            }--%>
-<%--        }--%>
-<%--    </script>--%>
 </body>
 </html>
 
