@@ -10,7 +10,6 @@
 <title>新闻详情页</title>
 <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/static/css/main.css">
-<!-- <link rel="stylesheet" href="../static/base/css/bootstrap.min.css"> -->
 <link rel="stylesheet" href="../static/base/css/bootstrap-movie.css">
 <link rel="stylesheet" href="../static/base/css/animate.css">
 <link rel="stylesheet" type="text/css" href="../static/jwplayer/skins/stormtrooper.css">
@@ -158,7 +157,7 @@ var ue = UE.getEditor('input_content',{
 	<div class="container">
 		<div class="col-md-8">
 			<!-- <h1 class="news-title">24小时内2名中国学生在英国失联%20使馆、警方已介入</h1>
-			
+
 			<div class="news-status">25K阅读·35分钟前发布
 				<div class="label label-default">教育</div>
 				<div class="label label-default">情感</div>
@@ -166,8 +165,7 @@ var ue = UE.getEditor('input_content',{
 			<h1 class="news-title">${detail.title }</h1>
 			
 			<div class="news-status">25K阅读·35分钟前发布
-				<div class="label label-default">教育</div>
-				<div class="label label-default">情感</div>
+				<div class="label label-default">${detail.typeName}</div>
 			</div>
 			<div class="news-content">
 				${detail.content }
@@ -189,77 +187,63 @@ var ue = UE.getEditor('input_content',{
                     </div>
                 </c:if>
                     <ol class="breadcrumb" style="margin-top:6px;">
-                        <li>全部评论(${fn:length(commentList)})</li>
+                        <li>全部评论(${fn:length(commList)})</li>
                     </ol>
-                <c:if test="${not empty user }">
-                    <form id="addCommForm" method="post" action="/addcomment" role="form" style="margin-bottom:6px;">
-                    <input type="hidden" id="userId" name="userId" value="${user.id }"/>
-                    <input type="hidden" id="detailId" name="detailId" value="${detail.id }"/>
-                        <div class="form-group">
-                            <div>
-                                <label for="input_content">内容</label>
-                                <textarea id="input_content" name="content"></textarea>
-                                
-                            </div>
-                            <div class="col-xs-12" id="error_content"></div>
-                        </div>
-                        <input type="submit" class="btn btn-success" id="btn-sub" value="提交评论"></a>
-                        &nbsp;
-                        <input type="button" class="btn btn-danger" id="btn-coldetail" value="收藏文章" onclick="login()"></a>
-                    </form>
-                </c:if>  
                     <ul class="commentList">
-                    <!-- 循环遍历 -->
-                    <c:forEach items="${pageInfo.list}"   var="comm">
-                        <li class="item cl">
-                            <a href="/user" >
-                                <c:if test="${comm.headimage==null}">
-                                <i class="avatar size-L radius">
-                                    <img alt="50x50" width="50" height="50" src="holder.js/50x50" class="img-circle" style="border:1px solid #abcdef;">
-                                </i>
-                                </c:if>
-                                <c:if test="${comm.headimage!=null}">
-                                  
-                                    <img  alt="50x50" width="50" height="50" src="${comm.headimage }" class="img-circle" style="border:1px solid #abcdef;width:50;height:50;float:left;">
-                                    
-                                </c:if>
-                            </a>
-                            
-                            <div class="comment-main">
-                                <header class="comment-header">
-                                    <div class="comment-meta">
-                                    	<c:if test="${comm.userName!=null}">
-                                        <a class="comment-author" href="user.html">${comm.userName }</a>
-                                        </c:if>
-                                        <c:if test="${comm.userName==null}">
-                                        <a class="comment-author" href="user.html">该用户尚未填写用户名</a>
-                                        </c:if>
-                                        评论于
-                                        <time title="${comm.addtime }" datetime="${comm.addtime }">${comm.addtime }</time>
+                        <!-- 循环遍历 -->
+                        <c:forEach items="${commList}"   var="comm">
+                            <li class="item cl">
+                                <div class="comment-main">
+                                    <header class="comment-header">
+                                        <div class="comment-meta">
+                                            <c:if test="${comm.username!=null}">
+                                                <a class="comment-author" href="user.html">${comm.username }</a>
+                                            </c:if>
+                                            <c:if test="${comm.username==null}">
+                                                <a class="comment-author" href="user.html">该用户尚未填写用户名</a>
+                                            </c:if>
+                                            评论于 2022-12-4 8:00
+                                        </div>
+                                    </header>
+                                    <div class="comment-body">
+                                        <p>${comm.comment}</p>
                                     </div>
-                                </header>
-                                <div class="comment-body">
-                                <!-- （python使用 |safe过滤是html标签显示） -->
-                                    <p>${comm.content}</p>
-                                </div>                               
-                            </div>
-                            
-                        </li>
+                                    <c:if test="${roleType == 3}">
+                                        <a href="${pageContext.request.contextPath}/deleteCommServlet?id=${comm.id}&newsId=${detail.newsId}" class="easyui-linkbutton" iconCls="icon-cancel" plain="true">删除</a>
+                                    </c:if>
+                                </div>
+
+                            </li>
                         </c:forEach>
                         <!-- #循环遍历 -->
                     </ul>
+                <c:if test="${not empty user }">
+                    <form id="addComment" method="post" action="${pageContext.request.contextPath}/addCommentServlet" role="form" style="margin-bottom:6px;">
+                    <input type="hidden" id="userId" name="userId" value="${user.userId }"/>
+                    <input type="hidden" id="detailId" name="newsId" value="${detail.newsId }"/>
+                        <div class="form-group">
+                            <div>
+                                <label for="input_content">内容</label>
+                                <textarea id="input_content" name="comment"></textarea>
+                            </div>
+                            <div class="col-xs-12" id="error_content"></div>
+                        </div>
+                        <input type="submit" class="btn btn-success" id="btn-sub" value="提交评论">
+                    </form>
+                </c:if>  
+
                     <div class="col-md-12 text-center">
                         <nav aria-label="Page navigation">
                             <ul class="pagination">
                                 <li>
-                                    <a href="/details?itemId=${detail.id}&pn=1" aria-label="First">
+                                    <a href="/details?itemId=${detail.newsId}&pn=1" aria-label="First">
                                         <span aria-hidden="true">首页</span>
                                     </a>
                                 </li>
                                 
                                 <c:if test="${pageInfo.hasPreviousPage}">
                                 <li >
-                                    <a href="/details?itemId=${detail.id}&pn=${pageInfo.pageNum-1}" aria-label="Previous">
+                                    <a href="/details?itemId=${detail.newsId}&pn=${pageInfo.pageNum-1}" aria-label="Previous">
                                         <span aria-hidden="true">上一页</span>
                                     </a>
                                 </li>
@@ -279,12 +263,12 @@ var ue = UE.getEditor('input_content',{
 			                            <li class="active"><a href="#">${page_num}</a></li>  
 			                        </c:if>  
 			                        <c:if test="${page_num != pageInfo.pageNum}">  
-			                            <li><a href="/details?itemId=${detail.id}&pn=${page_num}">${page_num}</a></li>  
+			                            <li><a href="/details?itemId=${detail.newsId}&pn=${page_num}">${page_num}</a></li>
 			                        </c:if>  
 			                    </c:forEach>
 			                    <c:if test="${pageInfo.hasNextPage}">
                                 <li>
-                                    <a href="/details?itemId=${detail.id}&pn=${pageInfo.pageNum+1}" aria-label="Next">
+                                    <a href="/details?itemId=${detail.newsId}&pn=${pageInfo.pageNum+1}" aria-label="Next">
                                         <span aria-hidden="true">下一页</span>
                                     </a>
                                 </li>
@@ -297,7 +281,7 @@ var ue = UE.getEditor('input_content',{
 			                                </li>
 			                    </c:if>  
                                 <li>
-                                    <a href="/details?itemId=${detail.id}&pn=${pageInfo.pages}" aria-label="Last">
+                                    <a href="/details?itemId=${detail.newsId}&pn=${pageInfo.pages}" aria-label="Last">
                                         <span aria-hidden="true">尾页</span>
                                     </a>
                                 </li>
@@ -316,5 +300,20 @@ var ue = UE.getEditor('input_content',{
 	</div>
 
     <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<%--    <script>--%>
+<%--        function destroyComm(id) {--%>
+<%--            console.log(id);--%>
+<%--            if (id) {--%>
+<%--                $.messager.confirm('Confirm', '确定要删除该条评论?', function(r) {--%>
+<%--                    if (r) {--%>
+<%--                        $.post('${pageContext.request.contextPath}/deleteCommServlet', {--%>
+<%--                            id : id--%>
+<%--                        });--%>
+<%--                    }--%>
+<%--                });--%>
+<%--            }--%>
+<%--        }--%>
+<%--    </script>--%>
 </body>
 </html>
+

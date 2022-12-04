@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="/js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
 <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
@@ -9,10 +10,14 @@
 	            <td>新闻分类:</td>
 	            <td>
 					<select name="typeId">
-						<option value="1">校园热点</option>
-						<option value="2">表白墙</option>
-						<option value="3">失物招领</option>
-						<option value="4">时政热点</option>
+<%--						<option value="1">综合</option>--%>
+<%--						<option value="2">表白墙</option>--%>
+<%--						<option value="3">失物招领</option>--%>
+<%--						<option value="4">时政热点</option>--%>
+<%--						<option value="5">校园热点</option>--%>
+						<c:forEach items="${typeList}"  var="type">
+							<option value="${type.typeId}">${type.typeName}</option>
+						</c:forEach>
 					</select>
 	            </td>
 	        </tr>

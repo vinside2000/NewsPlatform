@@ -28,7 +28,7 @@
 					<c:if test="${roleType == 2 }">
 	         			<li data-options="attributes:{'url':'/item-add.jsp'}">新增新闻</li>
 					</c:if>
-					<c:if test="${roleType == 2 || roleType == 3}">
+					<c:if test="${roleType == 2}">
 	         			<li data-options="attributes:{'url':'/item-list.jsp'}">新闻管理</li>
 					</c:if>
 	         	</ul>
@@ -37,9 +37,7 @@
 				<li>
 					<span>网站内容管理</span>
 					<ul>
-
-							<li data-options="attributes:{'url':'/content-category.jsp'}">新闻分类管理</li>
-
+						<li data-options="attributes:{'url':'/content-category.jsp'}">新闻分类管理</li>
 					</ul>
 				</li>
 			</c:if>
@@ -57,7 +55,7 @@
     <div data-options="region:'center',title:''">
     	<div id="tabs" class="easyui-tabs">
 		    <div title="首页" style="padding:20px;">
-		        	
+		        	<a href="/forward.jsp">返回主页</a>
 		    </div>
 		</div>
     </div>

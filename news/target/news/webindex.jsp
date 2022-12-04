@@ -21,25 +21,12 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	    	<div class="row">
-	    	  <c:forEach items="${cateList}"  end="5" var="cate">
-			  <div class="col-xs-3 col-sm-1 col-md-1">
-			  	<ul class="nav navbar-nav">
-			  		<li id="tes"><a href="/index?categoryId=${cate.id}">${cate.category}</a></li>
-			  	</ul>
-			  </div>
-			  </c:forEach>
 			  <div class="col-xs-3 col-sm-1 col-md-1 hidden-xs">
 			  	<ul class="nav navbar-nav">
 			  		<li id="tes" class="dropdown">
 		                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 更多
 		                    <b class="caret"></b>
 		                </a>
-		                <ul class="dropdown-menu"  >  <!-- style="overflow:scroll" -->
-		                <c:forEach items="${cateList}" begin="6" var="cate">
-		                	<li id="tea"><a href="/index?categoryId=${cate.id}">${cate.category}</a></li>
-		                    <li class="divider"></li>
-		                </c:forEach>
-		                </ul>
 		            </li>
 			  	</ul>
 			  </div>
@@ -95,21 +82,13 @@
 		<div class="row">
 			<div class="col-sm-2">
 				<div class="hidden-xs list-groud side-bar">
-				
-				<c:if test="${parentCategoryId==0 }">
-					<a href="/index?parentCategoryId=0" class="list-group-item active">综合</a>
-				</c:if>
-				
-				<c:if test="${parentCategoryId!=0 }">
-					<a href="/index?parentCategoryId=0" class="list-group-item">综合</a>
-				</c:if>
-				
-				<c:forEach items="${parentCate}"  var="Pcate">
-					<c:if test="${parentCategoryId==Pcate.id}">
-					<a href="/index?parentCategoryId=${Pcate.id}" class="list-group-item active">${Pcate.category}</a>
+
+				<c:forEach items="${typeList}"  var="type">
+					<c:if test="${typeId==type.typeId}">
+					<a href="${pageContext.request.contextPath}/newsByTypeServlet?typeId=${type.typeId}" class="list-group-item active">${type.typeName}</a>
 					</c:if>
-					<c:if test="${parentCategoryId!=Pcate.id }">
-					<a href="/index?parentCategoryId=${Pcate.id}" class="list-group-item ">${Pcate.category}</a>
+					<c:if test="${typeId!=type.typeId }">
+					<a href="${pageContext.request.contextPath}/newsByTypeServlet?typeId=${type.typeId}" class="list-group-item ">${type.typeName}</a>
 					</c:if>
 				</c:forEach>
 				</div>
@@ -118,17 +97,17 @@
 				<div class="news-list">
 				<c:forEach items="${itemList}"   var="item">
 				<div class="news-list-item clearfix">
-						<div class="col-xs-3">
-							<img src="${item.image1 }">
-						</div>
+<%--						<div class="col-xs-3">--%>
+<%--							<img src="${item.image1 }">--%>
+<%--						</div>--%>
 						<div class="col-xs-9">
-							<a href="/details?itemId=${item.id }" class="title">${item.title}</a>
+							<a href="${pageContext.request.contextPath}/detailNewsServlet?newsId=${item.newsId}" class="title">${item.title}</a>
 							<div class="info">
 								<span>
 									<span class="avatar">
 										<img src="/static/image/logo.jpg">
 									</span>
-									${item.writer }
+									${item.author}
 								</span>·
 								<span>24k评论</span>&nbsp;·
 								<span>

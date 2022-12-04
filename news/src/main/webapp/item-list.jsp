@@ -1,165 +1,230 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<table class="easyui-datagrid" id="itemList" title="新闻列表"
-       data-options="singleSelect:false,collapsible:true,pagination:true,url:'${pageContext.request.contextPath}/newsListServlet',method:'get',pageSize:30,toolbar:toolbar">
-    <thead>
-        <tr>
-        	<th data-options="field:'ck',checkbox:true"></th>
-        	<th data-options="field:'newsId',width:60" hidden>新闻ID</th>
-            <th data-options="field:'title',width:200">新闻标题</th>
-            <th data-options="field:'author',width:100">作者</th>
-            <th data-options="field:'typeId',width:100" hidden>分类ID</th>
-            <th data-options="field:'typeName',width:100">分类</th>
-            <th data-options="field:'content',width:100">新闻内容</th>
-        </tr>
-    </thead>
-</table>
-<div id="itemEditWindow" class="easyui-window" title="编辑新闻" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/rest/page/item-edit'" style="width:80%;height:80%;padding:10px;">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<table id="dg" style="width:800px" title="新闻列表" rownumbers="true"
+       data-options="fit:true" toolbar="#toolbar" fitColumns="true"
+       singleSelect="true"></table>
+<div id="toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editNews()">编辑</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" plain="true" onclick="destroyNews()">删除</a>
+    <input id="searchByName" style="line-height:26px;border:1px solid #ccc">
+    <a href="javascript:void(0)" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearch()">搜索</a>
+</div>
+<div id="dlg" class="easyui-dialog"
+     style="width:1000px;height:600px;padding:10px 20px" closed="true"
+     buttons="#dlg-buttons">
+    <form id="fm" method="post">
+        <input type="hidden" name="id"/>
+        <table cellpadding="5">
+            <tr>
+                <td>新闻分类:</td>
+                <td>
+                    <select name="typeId">
+                        <c:forEach items="${typeList}"  var="type">
+                            <option value="${type.typeId}">${type.typeName}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>作者:</td>
+                <td><input class="easyui-textbox" type="text" name="author" data-options="required:true" style="width: 280px;"></input></td>
+            </tr>
+            <tr>
+                <td>新闻标题:</td>
+                <td><input class="easyui-textbox" name="title" data-options="multiline:true,validType:'length[0,150]'" style="height:60px;width: 280px;"></input></td>
+            </tr>
+            <%--	        <tr>--%>
+            <%--	            <td>新闻图片:</td>--%>
+            <%--	            <td>--%>
+            <%--	            	 <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>--%>
+            <%--	                 <input type="hidden" name="image1"/>--%>
+            <%--	            </td>--%>
+            <%--	        </tr>--%>
+            <tr>
+                <td>新闻内容:</td>
+                <td>
+                    <textarea style="width:800px;height:300px;" name="content"></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div id="dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveNews()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">取消</a>
 </div>
 <script>
-
-    function getSelectionsIds(){
-    	var itemList = $("#itemList");
-    	var sels = itemList.datagrid("getSelections");
-    	var ids = [];
-    	for(var i in sels){
-    		ids.push(sels[i].newsId);
-    	}
-    	ids = ids.join(",");
-    	return ids;
+    // var itemEditor ;
+    // //页面初始化完毕后执行此方法
+    // $(function(){
+    //     //创建富文本编辑器
+    //     itemEditor = TAOTAO.createEditor("#fm [name=content]");
+    //     //初始化类目选择和图片上传器
+    //     TAOTAO.init({fun:function(node){
+    //         }});
+    // });
+    function editNews() {
+        var row = $("#dg").datagrid("getSelected");
+        if (row) {
+            $('#dlg').dialog('open').dialog('setTitle', '编辑新闻');
+            $('#fm').form('load', row);
+            //参数在这里传进去，后面的 save 就不传了
+            url = '${pageContext.request.contextPath}/modifyNewsServlet?newsId=' + row.newsId;
+        }
     }
-    
-    var toolbar = [{
-        text:'编辑',
-        iconCls:'icon-edit',
-        handler:function(){
-        	var ids = getSelectionsIds();
-        	if(ids.length == 0){
-        		$.messager.alert('提示','必须选择一个新闻才能编辑!');
-        		return ;
-        	}
-        	if(ids.indexOf(',') > 0){
-        		$.messager.alert('提示','只能选择一个新闻!');
-        		return ;
-        	}
-        	
-        	$("#itemEditWindow").window({
-        		onLoad :function(){
-        			//回显数据
-        			var data = $("#itemList").datagrid("getSelections")[0];
-        			data.priceView = TAOTAO.formatPrice(data.price);
-        			$("#itemeEditForm").form("load",data);
-
-        			// 加载商品描述
-        			$.getJSON('/rest/item/query/item/desc/'+data.id,function(_data){
-        				if(_data.status == 200){
-        					//UM.getEditor('itemeEditDescEditor').setContent(_data.data.itemDesc, false);
-        					itemEditEditor.html(_data.data.itemDesc);
-        				}
-        			});
-
-        			//加载商品规格
-        			$.getJSON('/rest/item/param/item/query/'+data.id,function(_data){
-        				if(_data && _data.status == 200 && _data.data && _data.data.paramData){
-        					$("#itemeEditForm .params").show();
-        					$("#itemeEditForm [name=itemParams]").val(_data.data.paramData);
-        					$("#itemeEditForm [name=itemParamId]").val(_data.data.id);
-
-        					//回显商品规格
-        					 var paramData = JSON.parse(_data.data.paramData);
-
-        					 var html = "<ul>";
-        					 for(var i in paramData){
-        						 var pd = paramData[i];
-        						 html+="<li><table>";
-        						 html+="<tr><td colspan=\"2\" class=\"group\">"+pd.group+"</td></tr>";
-
-        						 for(var j in pd.params){
-        							 var ps = pd.params[j];
-        							 html+="<tr><td class=\"param\"><span>"+ps.k+"</span>: </td><td><input autocomplete=\"off\" type=\"text\" value='"+ps.v+"'/></td></tr>";
-        						 }
-
-        						 html+="</li></table>";
-        					 }
-        					 html+= "</ul>";
-        					 $("#itemeEditForm .params td").eq(1).html(html);
-        				}
-        			});
-        			
-        			TAOTAO.init({
-        				"pics" : data.image,
-        				"cid" : data.cid,
-        				fun:function(node){
-        					TAOTAO.changeItemParam(node, "itemeEditForm");
-        				}
-        			});
-        		}
-        	}).window("open");
+    function saveNews() {
+        $('#fm').form('submit', {
+            url : url,
+            onSubmit : function() {
+                return $(this).form('validate');
+            },
+            success : function() {
+                alert("修改成功");
+                $('#dlg').dialog('close');
+                $('#dg').datagrid('reload');
+            }
+        });
+    }
+    function destroyNews() {
+        var row = $('#dg').datagrid('getSelected');
+        if (row) {
+            $.messager.confirm('Confirm', '确定要删除该条新闻?', function(r) {
+                if (r) {
+                    $.post('${pageContext.request.contextPath}/deleteNewsServlet', {
+                        newsId : row.newsId
+                    }, function(result) {
+                        $('#dg').datagrid('reload');
+                    });
+                }
+            });
         }
-    },{
-        text:'删除',
-        iconCls:'icon-cancel',
-        handler:function(){
-        	var ids = getSelectionsIds();
-        	if(ids.length == 0){
-        		$.messager.alert('提示','未选中新闻!');
-        		return ;
-        	}
-        	$.messager.confirm('确认','确定删除ID为 '+ids+' 的新闻吗？',function(r){
-        	    if (r){
-        	    	var params = {"ids":ids};
-                	$.post("/rest/item/delete",params, function(data){
-            			if(data.status == 200){
-            				$.messager.alert('提示','删除新闻成功!',undefined,function(){
-            					$("#itemList").datagrid("reload");
-            				});
-            			}
-            		});
-        	    }
-        	});
+    }
+    $('#dg').datagrid({
+        columns : [ [ //添加列
+            {
+                field : 'newsId', //绑定数据源ID
+                title : '新闻ID', //显示列名称
+                align : 'center', //内容在列居中
+                width : 100 ,//列的宽度
+                hidden : true
+            },
+            {
+                field : 'title',
+                title : '新闻标题',
+                align : 'center',
+                width : 100
+            },
+            {
+                field : 'author',
+                title : '作者',
+                align : 'center',
+                width : 100
+            },
+            {
+                field : 'typeId',
+                title : '分类ID',
+                align : 'center',
+                width : 100 ,
+                hidden : true
+            },
+            {
+                field : 'typeName',
+                title : '分类',
+                align : 'center',
+                width : 100
+            },
+            {
+                field : 'content',
+                title : '新闻内容',
+                align : 'center',
+                width : 100
+            },
+        ] ],
+        pagination : true, //开启分页
+        url : '${pageContext.request.contextPath}/newsListServlet', //获取数据地址
+        loadFilter : pagerFilter, //调用分页函数
+    });
+    function pagerFilter(data) {
+        if (typeof data.length == 'number' && typeof data.splice == 'function') { // is array
+            data = {
+                total : data.length,
+                rows : data
+            }
         }
-    },'-',{
-        text:'下架',
-        iconCls:'icon-remove',
-        handler:function(){
-        	var ids = getSelectionsIds();
-        	if(ids.length == 0){
-        		$.messager.alert('提示','未选中新闻!');
-        		return ;
-        	}
-        	$.messager.confirm('确认','确定下架ID为 '+ids+' 的新闻吗？',function(r){
-        	    if (r){
-        	    	var params = {"ids":ids};
-                	$.post("/rest/item/instock",params, function(data){
-            			if(data.status == 200){
-            				$.messager.alert('提示','下架新闻成功!',undefined,function(){
-            					$("#itemList").datagrid("reload");
-            				});
-            			}
-            		});
-        	    }
-        	});
+        var dg = $(this);
+        var opts = dg.datagrid('options');
+        var pager = dg.datagrid('getPager');
+        pager.pagination({
+            onSelectPage : function(pageNum, pageSize) {
+                opts.pageNumber = pageNum;
+                opts.pageSize = pageSize;
+                pager.pagination('refresh', {
+                    pageNumber : pageNum,
+                    pageSize : pageSize
+                });
+                dg.datagrid('loadData', data);
+            }
+        });
+        if (!data.originalRows) {
+            data.originalRows = (data.rows);
         }
-    },{
-        text:'上架',
-        iconCls:'icon-remove',
-        handler:function(){
-        	var ids = getSelectionsIds();
-        	if(ids.length == 0){
-        		$.messager.alert('提示','未选中新闻!');
-        		return ;
-        	}
-        	$.messager.confirm('确认','确定上架ID为 '+ids+' 的新闻吗？',function(r){
-        	    if (r){
-        	    	var params = {"ids":ids};
-                	$.post("/rest/item/reshelf",params, function(data){
-            			if(data.status == 200){
-            				$.messager.alert('提示','上架新闻成功!',undefined,function(){
-            					$("#itemList").datagrid("reload");
-            				});
-            			}
-            		});
-        	    }
-        	});
-        }
-    }];
+        var start = (opts.pageNumber - 1) * parseInt(opts.pageSize);
+        var end = start + parseInt(opts.pageSize);
+        data.rows = (data.originalRows.slice(start, end));
+        return data;
+    }
+    function doSearch() {
+        var $uname = $('#searchByName')
+        var ByName = $uname.val()
+
+
+        $('#dg').datagrid({
+            //这个的作用类似 Ajax 了！向后台传递数据
+            queryParams: {
+                ByName: ByName
+            },
+            columns : [ [ //添加列
+                {
+                    field : 'newsId', //绑定数据源ID
+                    title : '新闻ID', //显示列名称
+                    align : 'center', //内容在列居中
+                    width : 100 ,//列的宽度
+                    hidden : true
+                },
+                {
+                    field : 'title',
+                    title : '新闻标题',
+                    align : 'center',
+                    width : 100
+                },
+                {
+                    field : 'author',
+                    title : '作者',
+                    align : 'center',
+                    width : 100
+                },
+                {
+                    field : 'typeId',
+                    title : '分类ID',
+                    align : 'center',
+                    width : 100 ,
+                    hidden : true
+                },
+                {
+                    field : 'typeName',
+                    title : '分类',
+                    align : 'center',
+                    width : 100
+                },
+                {
+                    field : 'content',
+                    title : '新闻内容',
+                    align : 'center',
+                    width : 100
+                },
+            ] ],
+            ByName : ByName,
+            url : '${pageContext.request.contextPath}/searchNewsServlet' //获取数据地址
+        });
+    }
 </script>
