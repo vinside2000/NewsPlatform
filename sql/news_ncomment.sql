@@ -26,9 +26,9 @@ CREATE TABLE `ncomment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `news_id` varchar(256) NOT NULL,
   `user_id` varchar(256) NOT NULL,
-  `comment` varchar(256) NOT NULL,
+  `comment` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +37,7 @@ CREATE TABLE `ncomment` (
 
 LOCK TABLES `ncomment` WRITE;
 /*!40000 ALTER TABLE `ncomment` DISABLE KEYS */;
+INSERT INTO `ncomment` VALUES (2,'3a736e70b7f645559b742e9bd003f532','87a9313a30474c9892f882177ec51663','<p>评论测试2</p>'),(7,'a04ee1ef059241e28f5ac11179d46f94','87a9313a30474c9892f882177ec51663','<p>评论测试3</p>'),(8,'a04ee1ef059241e28f5ac11179d46f94','87a9313a30474c9892f882177ec51663','<p>aaa</p>'),(10,'3a736e70b7f645559b742e9bd003f532','5eebcf3dabe14635beba13849ec0f759','<p>评论测试</p>'),(11,'3a736e70b7f645559b742e9bd003f532','6c445d3d03e04be9b7830bb7214bcbe0','<p>测试</p>'),(13,'3a736e70b7f645559b742e9bd003f532','fc608658cd5f4dbc9ae19eb27e0c5efb','<p>xx</p>');
 /*!40000 ALTER TABLE `ncomment` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-27 19:56:29
+-- Dump completed on 2022-12-04 13:29:32

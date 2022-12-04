@@ -26,7 +26,7 @@ CREATE TABLE `ntype` (
   `type_id` int NOT NULL AUTO_INCREMENT,
   `type_name` varchar(256) NOT NULL,
   PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `ntype` (
 
 LOCK TABLES `ntype` WRITE;
 /*!40000 ALTER TABLE `ntype` DISABLE KEYS */;
-INSERT INTO `ntype` VALUES (1,'校园热点'),(2,'表白墙'),(3,'失物招领'),(4,'时政热点');
+INSERT INTO `ntype` VALUES (1,'综合'),(2,'表白墙test'),(3,'失物招领'),(5,'校园热点'),(6,'新增分类测试2'),(7,'删除测试'),(8,'新增分类测试2'),(9,'新增');
 /*!40000 ALTER TABLE `ntype` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-27 19:56:29
+-- Dump completed on 2022-12-04 13:29:33
